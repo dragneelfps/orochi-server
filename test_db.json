@@ -1,0 +1,87 @@
+{
+  "users": [
+    {
+      "id": "user1",
+      "email": "drag1@gmail.com",
+      "password": "$2y$05$Go2OftBwSrNtS4Ji.0ujQuTwj9ntFhvAo0fPbkwfxErQdSmsdanFi"
+    },
+    {
+      "id": "user2",
+      "email": "drag2@gmail.com",
+      "password": "$2y$05$Go2OftBwSrNtS4Ji.0ujQuTwj9ntFhvAo0fPbkwfxErQdSmsdanFi"
+    }
+  ],
+  "profiles": [
+    {
+      "id": "profile1",
+      "username": "drag1",
+      "userId": "user1",
+      "firstName": "Sourabh",
+      "middleName": "S",
+      "lastName": "Rawat",
+      "profile_image": "https://miscmedia-9gag-fun.9cache.com/images/thumbnail-facebook/1551322674.3587_Y2azAt_n.jpg",
+      "about_me": "The cool guy",
+      "dob": 85784580000,
+      "gender": "M",
+      "friends": [
+        {      
+          "id": "friendship1",
+          "friend": "profile2",
+          "friend_since": 1555292386778
+        }
+      ]
+    },
+    {
+      "id": "profile2",
+      "username": "drag2",
+      "userId": "user2",
+      "firstName": "Rohit",
+      "middleName": null,
+      "lastName": "Negi",
+      "profile_image": "https://i.pinimg.com/originals/58/92/e7/5892e7f3cc64c8a912e2494a3ff77e08.jpg",
+      "about_me": "The hot guy",
+      "dob": 87382980000,
+      "gender": "F",
+      "friends": [
+        {
+          "id": "friendship2",
+          "friend": "profile1",
+          "friend_since": 1555292386778
+        }
+      ]
+    }
+  ],
+  "posts": [
+    {
+      "id": "post1",
+      "content": "Hello Everyone~~",
+      "author": "profile1",
+      "post_date": 1555292483950,
+      "comments": [
+        {
+          "id": "comment1",
+          "content": "Hi back!!",
+          "commenter": "profile2",
+          "comment_date": 1555292633046,
+          "replies": [
+            {
+              "id": "comment2",
+              "content": "How are you",
+              "commenter": "profile1",
+              "comment_date": 1555292693221,
+              "replies": [
+                {
+                  "id": "comment3",
+                  "content": "I am good. What about you?",
+                  "commenter": "profile2",
+                  "comment_date": 1555292693221,
+                  "replies": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
