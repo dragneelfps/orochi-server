@@ -2,17 +2,30 @@ const {
   gql
 } = require('apollo-server-express')
 
-module.exports = gql `
+module.exports = gql`
   type User {
-    id: ID
+    _id: ID
     email: String
     profiles: [Profile]
   }
 
   type Profile {
-    id: ID
+    _id: ID
     username: String
-    name: String
+    firstName: String
+    middleName: String
+    lastName: String
+    profileImage: String
+    aboutMe: String
+    dob: String
+    gender: String
+    friends: [Friend]
+  }
+
+  type Friend {
+    id: ID
+    friend: Profile
+    friendsSince: String
   }
 
   type Query {
