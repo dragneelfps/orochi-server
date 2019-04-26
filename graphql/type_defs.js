@@ -6,7 +6,7 @@ module.exports = gql`
   type User {
     _id: ID
     email: String
-    profiles: [Profile]
+    profile: Profile
   }
 
   type Profile {
@@ -24,8 +24,19 @@ module.exports = gql`
 
   type Friend {
     id: ID
-    friend: Profile
+    friend: User
     friendsSince: String
+  }
+
+  input UserProfileInput {
+    username: String!
+    firstName: String!
+    middleName: String
+    lastName: String
+    profileImage: String
+    aboutMe: String
+    dob: String
+    gender: String
   }
 
   type Query {
@@ -34,8 +45,13 @@ module.exports = gql`
   }
 
   type Mutation {
+    # User 
     createUser(email: String!, password: String!): User
     loginUser(email: String!, password: String!): User
     logoutUser: User
+
+    # User Profile
+    createUserProfile(userProfileInput: UserProfileInput): Profile
+
   }
 `

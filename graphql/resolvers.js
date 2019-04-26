@@ -4,6 +4,8 @@ const {
   getUserProfile,
 } = require('./../helpers/user')
 
+const ProfileDao = require('./../helpers/profile')
+
 const AuthService = require('./../services/auth')
 
 module.exports = {
@@ -16,11 +18,13 @@ module.exports = {
 
     loginUser: (parent, { email, password }, ctx) => AuthService.login({ email, password, req: ctx.req }),
 
-    logoutUser: (parent, args, ctx) => AuthService.logout({ req: ctx.req })
+    logoutUser: (parent, args, ctx) => AuthService.logout({ req: ctx.req }),
+
+    createUserProfile: (parent, { userProfileInput }, ctx) => ProfileDao.createUserProfile({ userProfileInput, req: ctx.req })
   },
   User: {
-    profiles: user => {
-      return getUserProfileList(user._id)
+    profile: user => {
+      return getUserProfile(user._id)
     }
   },
   Profile: {
@@ -42,7 +46,7 @@ module.exports = {
   Friend: {
     friend: friend => {
       console.log(friend)
-      return getUserProfile(friend.friend)
+      return getUser(friend.friend)
     },
     friendsSince: friend => 'friend_since'
   }

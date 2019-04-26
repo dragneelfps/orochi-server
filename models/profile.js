@@ -11,7 +11,7 @@ const ProfileSchema = mongoose.Schema({
   gender: String,
   friends: [{
     id: mongoose.Schema.Types.ObjectId,
-    friend: { type: mongoose.Schema.Types.ObjectId, ref: 'profile' },
+    friend: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
     friendSince: Date
   }]
 })
