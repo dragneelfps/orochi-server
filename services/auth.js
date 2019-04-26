@@ -19,7 +19,7 @@ passport.deserializeUser((id, done) => {
 passport.use(new LocalStrategy({
   usernameField: 'email'
 }, (email, password, done) => {
-  getUserByEmail(email.toLowerCase())
+  getUserByEmail(email.toLowerCase(), true)
     .then(user => {
       if (!user) {
         return done(null, false, { message: 'Incorrect Email' })

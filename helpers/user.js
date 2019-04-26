@@ -3,7 +3,10 @@ const ProfileModel = require('./../models/profile')
 
 module.exports = {
 
-  getUserByEmail: async (email) => UserModel.findOne({ email }),
+  getUserByEmail: (email, withPassword) => {
+    if (!withPassword) return UserModel.findOne({ email })
+    return UserModel.findOne({ email }, '+password')
+  },
 
   getUserById: (id) => UserModel.findById(id),
 

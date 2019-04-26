@@ -25,7 +25,7 @@ const mongoose = require('mongoose')
 
 const UserSchema = new mongoose.Schema({
   email: String,
-  password: String
+  password: { type: String, select: false }
 })
 
 UserSchema.pre('save', function save(next) {
