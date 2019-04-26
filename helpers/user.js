@@ -1,9 +1,14 @@
 const mongoose = require('mongoose')
+const passport = require('passport')
 
-const UserModel = mongoose.model('user')
-const ProfileModel = mongoose.model('profile')
+const UserModel = require('./../models/user')
+const ProfileModel = require('./../models/profile')
 
 module.exports = {
+
+  getUserByEmail: async (email) => UserModel.findOne({ email }),
+
+  getUserById: (id) => UserModel.findById(id),
 
   getUserList: () => UserModel.find({}),
 
