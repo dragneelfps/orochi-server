@@ -51,4 +51,8 @@ apolloServer.applyMiddleware({
   app
 })
 
+app.get('/', (req, res) => {
+  res.send('Welcome')
+})
+
 app.listen(port, () => console.log(`Running at ${port}. Graphql running at ${apolloServer.graphqlPath}`))
