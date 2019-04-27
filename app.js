@@ -7,7 +7,7 @@ const MongoStore = require('connect-mongo')(session)
 
 //graphql config
 const typeDefs = require('./graphql/type_defs')
-const resolvers = require('./graphql/resolvers')
+const resolvers = require('./graphql/root_resolvers')
 
 
 //Initialize schema 
