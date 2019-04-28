@@ -1,8 +1,6 @@
-const {
-  gql
-} = require('apollo-server-express')
+import { gql } from "apollo-server-express";
 
-module.exports = gql`
+export default gql`
   type User {
     _id: ID
     email: String
@@ -45,7 +43,7 @@ module.exports = gql`
   }
 
   type Mutation {
-    # User 
+    # User
     createUser(email: String!, password: String!): User
     loginUser(email: String!, password: String!): User
     logoutUser: User
@@ -54,4 +52,4 @@ module.exports = gql`
     createUserProfile(userProfileInput: UserProfileInput): Profile
 
   }
-`
+`;

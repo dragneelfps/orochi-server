@@ -12,7 +12,7 @@
   "rulesDirectory": [],
   "linterOptions": {
     "exclude": [
-      "**/*.js"
+      "src/**/*.js"
     ]
   }
 }

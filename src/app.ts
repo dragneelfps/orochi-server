@@ -14,7 +14,7 @@ import typeDefs from "./graphql/type_defs";
 import "./models/schema";
 
 // Initialize auth config
-import authConfig from "./services/auth";
+import "./services/auth";
 
 // Mongo db config
 const MONGO_URI = "mongodb://drag:pass1234@ds058048.mlab.com:58048/orochi";
