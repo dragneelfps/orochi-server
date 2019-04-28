@@ -36,7 +36,7 @@ const port = process.env.PORT || 4000;
 app.use(session({
   resave: true,
   saveUninitialized: true,
-  secret: "lucifer",
+  secret: process.env.EXPRESS_SESSION_KEY || "lucifer",
   store: new MongoStore({
     url: MONGO_URI,
     autoReconnect: true
