@@ -1,7 +1,12 @@
-import UserHelper from "../../helpers/user";
+import { IRepository } from "./../../data/repository";
 
 export default {
-  User: {
-    profile: (user) => UserHelper.getUserProfile(user._id)
+  getUserResolver: (repository: IRepository): any => {
+    return {
+      User: {
+        profile: (user) =>
+          repository.getProfileDao().getUserProfileByUserId(user._id)
+      }
+    };
   }
 };

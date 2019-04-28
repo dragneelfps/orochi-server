@@ -21,7 +21,7 @@
 // module.exports = new User()
 
 import bycrpt from "bcrypt";
-import { Document, model, Schema } from "mongoose";
+import { Document, model, Model, Schema } from "mongoose";
 
 export interface IUser extends Document {
   email: string;

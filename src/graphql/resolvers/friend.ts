@@ -1,8 +1,12 @@
-import UserHelper from "./../../helpers/user";
+import { IRepository } from "./../../data/repository";
 
 export default {
-  Friend: {
-    friend: (friend) => UserHelper.getUserById(friend.friend),
-    friendsSince: (friend) => "friend_since"
+  getFriendResolver: (repository: IRepository): any => {
+    return {
+      Friend: {
+        friend: (friend) => repository.getUserDao().getUserById(friend.friend),
+        friendsSince: (friend) => "friend_since"
+      }
+    };
   }
 };

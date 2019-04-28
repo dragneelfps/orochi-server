@@ -1,9 +1,8 @@
 import { Types } from "mongoose";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
+import Repository, { IRepository } from "./../data/repository";
 import User, { IUser } from "./../models/user";
-
-import UserHelper from "../helpers/user";
 
 interface IRequest {
   user: IUser;
@@ -11,12 +10,15 @@ interface IRequest {
   logout: () => any;
 }
 
+const repository: IRepository = new Repository();
+const userDao = repository.getUserDao();
+
 passport.serializeUser((user: IUser, done) => {
   done(null, user._id);
 });
 
 passport.deserializeUser((id: Types.ObjectId, done) => {
-  UserHelper.getUserById(id)
+  userDao.getUserById(id)
     .then((user: IUser) => done(null, user))
     .catch((err) => done(err));
 });
@@ -24,7 +26,7 @@ passport.deserializeUser((id: Types.ObjectId, done) => {
 passport.use(new LocalStrategy({
   usernameField: "email"
 }, (email: string, password: string, done) => {
-  UserHelper.getUserByEmail(email.toLowerCase(), true)
+  userDao.getUserByEmail(email.toLowerCase(), true)
     .then((user: IUser) => {
       if (!user) {
         return done(null, false, { message: "Incorrect Email" });
@@ -42,7 +44,7 @@ const signup = (email: string, password: string, req: IRequest) => {
   if (!email || !password) { throw new Error("You must provide an email and password."); }
 
   const user = new User({ email, password });
-  return UserHelper.getUserByEmail(email)
+  return userDao.getUserByEmail(email)
     .then((existingUser: IUser) => {
       if (existingUser) { throw new Error("Email in use."); }
       return user.save();

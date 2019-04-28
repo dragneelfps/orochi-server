@@ -1,5 +1,9 @@
 export default {
-  Profile: {
-    dob: (profile) => "dob",
+  getProfileRepository: (): any => {
+    return {
+      Profile: {
+        dob: (profile) => "dob",
+      }
+    };
   }
 };

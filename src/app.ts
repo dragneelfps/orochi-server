@@ -14,6 +14,7 @@ import typeDefs from "./graphql/type_defs";
 import "./models/schema";
 
 // Initialize auth config
+import Repository from "./data/repository";
 import "./services/auth";
 
 // Mongo db config
@@ -26,7 +27,7 @@ mongoose.connection
 
 const apolloServer = new ApolloServer({
   typeDefs,
-  resolvers,
+  resolvers: resolvers.getRootResolver(new Repository()),
   context: ({ req }) => ({ req }),
 });
 
