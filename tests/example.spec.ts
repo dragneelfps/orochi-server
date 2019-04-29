@@ -12,7 +12,7 @@ describe('db', function () {
   })
 
   it("read val is 1", function () {
-    expect(dbVal).to.equal(1);
+    expect(dbVal).to.equal(12);
   })
 
   it("read val is not 12", function () {
