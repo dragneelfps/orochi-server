@@ -5,6 +5,7 @@ before_install:
 - npm install
 script:
 - npm run build
+- npm test
 env:
   - CXX=g++-4.8
 addons:
