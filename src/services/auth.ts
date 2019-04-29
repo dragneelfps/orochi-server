@@ -4,7 +4,7 @@ import { Strategy as LocalStrategy } from "passport-local";
 import Repository, { IRepository } from "./../data/repository";
 import User, { IUser } from "./../models/user";
 
-interface IRequest {
+export interface IRequest {
   user: IUser;
   logIn: (user: IUser, cb: (err?: Error) => any) => any;
   logout: () => any;
@@ -40,7 +40,7 @@ passport.use(new LocalStrategy({
     .catch((err) => done(err));
 }));
 
-const signup = (email: string, password: string, req: IRequest) => {
+const signup = (email: string, password: string, req: IRequest): Promise<IUser> => {
   if (!email || !password) { throw new Error("You must provide an email and password."); }
 
   const user = new User({ email, password });

@@ -1,7 +1,5 @@
-import IProfileDao from "./profile_dao";
-import ProfileRepository from "./profile_repository";
-import IUserDao from "./user_dao";
-import UserRepository from "./user_repository";
+import ProfileRepository, { IProfileDao } from "./profile_repository";
+import UserRepository, { IUserDao } from "./user_repository";
 
 export interface IRepository {
   getUserDao(): IUserDao;

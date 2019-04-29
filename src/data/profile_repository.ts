@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
 import ProfileModel, { IProfile } from "./../models/profile";
-import IProfileDao from "./profile_dao";
+
+export interface IProfileDao {
+  getUserProfileByUserId(userId: mongoose.Types.ObjectId): Promise<IProfile>;
+  getUserProfileById(profileId: mongoose.Types.ObjectId): Promise<IProfile>;
+  createUserProfile(userProfileInput: any, req: any): Promise<IProfile>;
+}
 
 export default class ProfileRepository implements IProfileDao {
   public getUserProfileByUserId(userId: mongoose.Types.ObjectId): Promise<IProfile> {

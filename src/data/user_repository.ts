@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
 import UserModel, { IUser } from "./../models/user";
-import IUserDao from "./user_dao";
+
+export interface IUserDao {
+  getUserByEmail(email: string, withPassword?: boolean): Promise<IUser>;
+  getUserById(id: mongoose.Types.ObjectId): Promise<IUser>;
+  getUserList(): Promise<IUser[]>;
+}
 
 export default class UserRepository implements IUserDao {
   public getUserByEmail(email: string, withPassword?: boolean): Promise<IUser> {
