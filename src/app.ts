@@ -49,6 +49,10 @@ app.use(passport.session());
 
 apolloServer.applyMiddleware({
   app,
+  cors: {
+    credentials: true,
+    origin: "http://localhost:3000"
+  }
 });
 
 app.get("/", (req, res) => {
