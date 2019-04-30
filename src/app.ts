@@ -29,6 +29,7 @@ const apolloServer = new ApolloServer({
   typeDefs,
   resolvers: resolvers.getRootResolver(new Repository()),
   context: ({ req }) => ({ req }),
+  debug: false
 });
 
 const app = express();
