@@ -48,7 +48,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 apolloServer.applyMiddleware({
-  app
+  app,
+  cors: true
 });
 
 app.get("/", (req, res) => {
