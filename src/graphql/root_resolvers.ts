@@ -5,6 +5,8 @@ import friendResolver from "./resolvers/friend";
 import profileResolver from "./resolvers/profile";
 import userResolver from "./resolvers/user";
 
+import { ApolloError, UserInputError } from "apollo-server-errors";
+
 export default {
   getRootResolver: (repository: IRepository): any => {
     const userDao = repository.getUserDao();
@@ -15,9 +17,23 @@ export default {
         currentUser: (parent, args, ctx) => ctx.req.user
       },
       Mutation: {
-        createUser: (parent, { email, password }, ctx) => AuthService.signup(email, password, ctx.req),
+        createUser: async (parent, { email, password }, ctx) => {
+          try {
+            const user = await AuthService.signup(email, password, ctx.req);
+            return user;
+          } catch (e) {
+            throw new UserInputError(e.message);
+          }
+        },
 
-        loginUser: (parent, { email, password }, ctx) => AuthService.login(email, password, ctx.req),
+        loginUser: async (parent, { email, password }, ctx) => {
+          try {
+            const user = await AuthService.login(email, password, ctx.req);
+            return user;
+          } catch (e) {
+            throw new UserInputError(e.message);
+          }
+        },
 
         logoutUser: (parent, args, ctx) => AuthService.logout(ctx.req),
 

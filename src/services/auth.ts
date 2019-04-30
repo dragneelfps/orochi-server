@@ -3,6 +3,7 @@ import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import Repository, { IRepository } from "./../data/repository";
 import User, { IUser } from "./../models/user";
+import AuthError, { AuthErrorType } from "./errors";
 
 export interface IRequest {
   user: IUser;
@@ -40,30 +41,36 @@ passport.use(new LocalStrategy({
     .catch((err) => done(err));
 }));
 
-const signup = (email: string, password: string, req: IRequest): Promise<IUser> => {
-  if (!email || !password) { throw new Error("You must provide an email and password."); }
-
+const signup = async (email: string, password: string, req: IRequest): Promise<IUser> => {
+  if (!email || !password) {
+    throw new AuthError(AuthErrorType.FIELD_MISSING);
+  }
+  const existingUser: IUser = await userDao.getUserByEmail(email);
+  if (existingUser) {
+    throw new AuthError(AuthErrorType.EMAIL_IN_USE);
+  }
   const user = new User({ email, password });
-  return userDao.getUserByEmail(email)
-    .then((existingUser: IUser) => {
-      if (existingUser) { throw new Error("Email in use."); }
-      return user.save();
-    })
-    .then((newUser: IUser) => {
-      return new Promise((resolve, reject) => {
-        req.logIn(newUser, (err) => {
-          if (err) { reject(err); }
-          resolve(newUser);
-        });
-      });
+  const savedUser = await user.save();
+  return await new Promise((resolve, reject) => {
+    req.logIn(savedUser, (err) => {
+      if (err) { reject(err); }
+      resolve(savedUser);
     });
+  });
+
 };
 
-const login = (email: string, password: string, req: IRequest) => {
-  return new Promise((resolve, reject) => {
+const login = async (email: string, password: string, req: IRequest): Promise<IUser> => {
+  return await new Promise((resolve, reject) => {
     passport.authenticate("local", (err, user: IUser) => {
-      if (err) { reject(err); }
-      if (!user) { reject("Invalid credentials"); }
+      if (err) {
+        reject(err);
+        return;
+      }
+      if (!user) {
+        reject(new AuthError(AuthErrorType.INVALID_CREDENTIALS));
+        return;
+      }
       req.logIn(user, () => resolve(user));
     })({ body: { email, password } });
   });
